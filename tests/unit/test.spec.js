@@ -6,7 +6,7 @@ import { expect} from 'chai'
 describe('MyFirstComponent', () =>{
     const wrapper = mount(TestComponent,{
         propsData:{
-            seen: true,
+            seen: false,
             msg: 'SdASDASDADASDsds'
         }
     });
