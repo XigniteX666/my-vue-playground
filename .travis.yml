@@ -3,3 +3,7 @@ node_js:
   - "8"
 script: 
   npm run test:unit
+notifications:
+    on_change: always
+    on_success: never
+    on_failure: always
