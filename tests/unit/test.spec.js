@@ -15,5 +15,10 @@ describe('MyFirstComponent', () =>{
         expect(wrapper.html()).contains("<span>Now you see me</span>")
     })
 
-    
+    it('button click reverses the message', () => {
+        expect(wrapper.vm.msg).to.equal("Hello World!")
+        const button = wrapper.find("button");
+        button.trigger("click");
+        expect(wrapper.vm.msg).to.equal("!dlroW olleH")
+    })
 })
