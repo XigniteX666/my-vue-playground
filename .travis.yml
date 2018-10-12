@@ -3,7 +3,4 @@ node_js:
   - "8"
 script: 
   npm run test:unit
-notifications:
-  slack: 'oskaralbers@gmail:Nb4qpIA1Y4GsdPv5RtNCHA#ci'
-    on_success: always
-    on_failure: always
+
