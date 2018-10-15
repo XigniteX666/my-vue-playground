@@ -7,13 +7,10 @@ const authHost = process.env.VUE_APP_CT_AUTH_HOST || 'X';
 const apiHost = process.env.VUE_APP_CT_API_HOST || 'X';
 
 function scopes() {
-  return ['manage_my_orders',
+  return [
     'create_anonymous_token',
-    'view_products',
-    'manage_my_payments',
-    'manage_my_profile',
-    'manage_my_shopping_lists',
-    'view_project_settings']
+    'view_products'
+    ]
     .map(scope => `${scope}:${projectKey}`);
 }
 
