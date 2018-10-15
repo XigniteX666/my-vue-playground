@@ -1,23 +1,36 @@
 
 import Vue from 'vue';
 import VueApollo from 'vue-apollo';
-import {  createHttpLink } from 'apollo-link-http';
+import {  createHttpLink, HttpLink } from 'apollo-link-http';
+import { setContext } from 'apollo-link-context';
 import { createApolloClient } from 'vue-cli-plugin-apollo/graphql-client';
+import { createAuthMiddlewareForClientCredentialsFlow }
+  from '@commercetools/sdk-middleware-auth/dist/commercetools-sdk-middleware-auth.cjs';
+import settings from '@/config/settings';
 
 
 // Install the vue plugin
 Vue.use(VueApollo);
 
-//const httpEndpoint = process.env.VUE_APP_GRAPHQL_HTTP || `https://api.commercetools.com/${config.ct.auth.projectKey}/graphql`;
-const httpEndpoint =  `https://api.sphere.io/myplayground-68/graphql`;
+const httpEndpoint = process.env.VUE_APP_GRAPHQL_HTTP || `https://api.commercetools.com/${config.ct.auth.projectKey}/graphql`;
+//const httpEndpoint =  `https://api.sphere.io/myplayground-68/graphql`;
 
+// Create commercetools authentication middleware
+const authMiddleware = createAuthMiddlewareForClientCredentialsFlow(settings.ct.auth);
 
-const link2  = createHttpLink({
-  uri:httpEndpoint,
-  headers:{
-    Authorization: 'Bearer ' + process.env.VUE_APP_SECRET
-  }
-})
+function addAuthHeader(request) {
+  console.log(settings.ct.auth)
+  return new Promise(success => authMiddleware(requestWithAuth => success(requestWithAuth))(request));
+}
+
+const link = setContext(request => addAuthHeader(request)).concat(new HttpLink({ uri: httpEndpoint }));
+
+// const link2  = createHttpLink({
+//   uri:httpEndpoint,
+//   headers:{
+//     Authorization: 'Bearer ' + process.env.VUE_APP_SECRET
+//   }
+// })
 
 // Config
 const defaultOptions = {
@@ -35,7 +48,7 @@ const defaultOptions = {
   ssr: false,
 
   // Override default http link
-  link: link2
+  link: link
   // Override default cache
   // cache: myCache
 
