@@ -1,0 +1,28 @@
+query getproduct($productId: String!, $locale: Locale!, $showDetails: Boolean!) {
+  product(id: $productId) {
+    masterData {
+      current {
+        name(locale: $locale)
+        description(locale: $locale)
+        slug(locale: $locale)
+        variants @include(if: $showDetails) {
+          ...variant
+        }
+      }
+    }
+  }
+}
+
+fragment variant on ProductVariant{
+  id
+  sku
+  images {
+    label
+  }
+}
+
+{
+  "productId":"41044742-f97a-450c-a1d5-d8e36d97d3a7",
+  "locale": "EN",
+  "showDetails": true
+}

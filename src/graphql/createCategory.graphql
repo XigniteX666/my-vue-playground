@@ -1,0 +1,21 @@
+mutation createCategory($category: CategoryDraft!, $locale: Locale!) {
+  createCategory(draft: $category) {
+    id
+    name(locale:$locale)
+    slug(locale:$locale)
+  }
+}
+,
+{
+  "locale": "EN",
+  "category": {
+    "name": {
+      "locale": "EN",
+      "value": "GraphQL category 5"
+    },
+    "slug": {
+      "locale":"EN",
+      "value": "GraphQL5"
+    }
+  }
+}

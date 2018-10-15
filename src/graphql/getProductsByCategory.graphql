@@ -1,0 +1,37 @@
+query listProducts($locale: Locale!, $currency: Currency!, $where: String, $maxNr: Int = 1) {
+  products(limit: $maxNr, where: $where) {
+    count
+    results {
+      id
+      masterData {
+        current {
+          name(locale: $locale)
+          description(locale: $locale)
+          masterVariant {
+            images {
+              url
+            }
+            price(currency: $currency) {
+              value {
+                ...printPrice
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment printPrice on BaseMoney {
+  centAmount
+  fractionDigits
+}
+
+variables:
+
+{ 
+  "locale": "EN",
+  "currency": "EUR",
+  "where": "masterData(current(categories(id=\"2a55777f-f7f3-49ef-b87c-9be71ea3bced\")))"
+}
