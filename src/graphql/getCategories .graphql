@@ -1,0 +1,35 @@
+query getAllCategories($locale: Locale!){
+  categories(limit: 100, where: "parent is not defined", sort: "orderHint asc") {
+    results {
+      ...mainCategory
+      children {
+        ...subCategory
+        children {
+          ...subCategory
+        }
+      }
+    }
+  }
+}
+
+fragment mainCategory on Category {
+  id
+  name(locale: $locale)
+  slug(locale: $locale)
+  description(locale: $locale)
+  ancestors {
+    name(locale: $locale)
+    slug(locale: $locale)
+  }
+}
+
+fragment subCategory on Category{
+  id
+  name(locale: $locale)
+  description(locale: $locale)
+  slug(locale: $locale)
+}
+,
+{
+  "locale": "EN"
+}

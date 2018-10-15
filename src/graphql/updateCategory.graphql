@@ -1,0 +1,31 @@
+mutation updateCategory($locale: Locale!,$categoryId: String!, $version: Long!, $actions: [CategoryUpdateAction!]!) {
+  updateCategory(id: $categoryId, version: $version, actions: $actions) {
+    id
+    version
+    name(locale:$locale)
+  }
+}
+
+variables:
+{
+  "locale": "EN",
+  "categoryId": "da1f31f1-016e-4a67-b6e5-9a3b00d8f591",
+  "version": 5,
+  "actions": [{
+    "changeName": {
+      "name": {
+        "locale": "EN",
+        "value": "This is a changed nam2e"
+      }
+    }
+  },{
+    "changeSlug": {
+      "slug": {
+        "locale": "EN",
+        "value": "slug6"
+      }
+    }	
+  }
+  
+  ]
+}

@@ -1,0 +1,13 @@
+mutation deleteCategory($categoryId: String!, $version: Long!, $locale: Locale!) {
+  deleteCategory(id: $categoryId, version: $version) {
+    id
+    version
+    name(locale:$locale)
+  }
+}
+variables:
+{
+  "locale": "EN",
+  "categoryId": "28b6d799-3c2f-4db4-ac22-d7081c4842aa",
+  "version": 1
+}

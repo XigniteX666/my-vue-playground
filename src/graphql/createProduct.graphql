@@ -1,0 +1,29 @@
+mutation createCategory($product: ProductDraft!, $locale: Locale!) {
+  createProduct(draft: $product) {
+    id
+    masterData{
+      current{
+        name(locale: $locale)
+      }
+    }
+  }
+}
+
+variables:
+{
+  "locale": "EN",
+  "product": {
+    "productType": {
+      "id": "43b30729-092c-4930-87a3-d8df8def9cac"
+    },
+    "name": {
+      "locale": "EN",
+      "value": "New product"
+    },
+    "slug": {
+      "locale": "EN",
+      "value": "new2"
+    }
+  }
+  
+}
