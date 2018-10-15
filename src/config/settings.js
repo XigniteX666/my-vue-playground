@@ -9,7 +9,11 @@ const apiHost = process.env.VUE_APP_CT_API_HOST || 'X';
 function scopes() {
   return [
     'create_anonymous_token',
-    'view_products'
+    'manage_my_payments',
+    'manage_my_shopping_lists',
+    'view_products',
+    'manage_my_orders',
+    'manage_my_profile'
     ]
     .map(scope => `${scope}:${projectKey}`);
 }

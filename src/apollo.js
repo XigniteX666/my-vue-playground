@@ -8,7 +8,6 @@ import { createAuthMiddlewareForClientCredentialsFlow }
   from '@commercetools/sdk-middleware-auth/dist/commercetools-sdk-middleware-auth.cjs';
 import settings from '@/config/settings';
 
-
 // Install the vue plugin
 Vue.use(VueApollo);
 
