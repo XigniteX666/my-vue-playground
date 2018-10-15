@@ -1,19 +1,20 @@
 // default commercetools project credentials
-const projectKey = process.env.VUE_APP_CT_PROJECT_KEY || 'myplayground-68';
-const clientId = process.env.VUE_APP_CT_CLIENT_ID || '1S-hPKqclv5b-zwCqFd-CJpk';
-const clientSecret = process.env.VUE_APP_CT_CLIENT_SECRET || 'ACUBwNgvurAvBFeOZghReE7JYbeefFiC';
+const projectKey = process.env.VUE_APP_CT_PROJECT_KEY || 'X';
+const clientId = process.env.VUE_APP_CT_CLIENT_ID || 'X';
+const clientSecret = process.env.VUE_APP_CT_CLIENT_SECRET || 'X';
 
-const authHost = process.env.VUE_APP_CT_AUTH_HOST || 'https://auth.sphere.io';
-const apiHost = process.env.VUE_APP_CT_API_HOST || 'https://api.sphere.io';
+const authHost = process.env.VUE_APP_CT_AUTH_HOST || 'X';
+const apiHost = process.env.VUE_APP_CT_API_HOST || 'X';
 
 function scopes() {
-  return ['manage_my_orders',
+  return [
     'create_anonymous_token',
-    'view_products',
     'manage_my_payments',
-    'manage_my_profile',
     'manage_my_shopping_lists',
-    'view_project_settings']
+    'view_products',
+    'manage_my_orders',
+    'manage_my_profile'
+    ]
     .map(scope => `${scope}:${projectKey}`);
 }
 
