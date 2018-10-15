@@ -10,7 +10,7 @@ export default new Vuex.Store({
   state: {
     flavor: '',
     count: 1,
-    token: 'HkDJeTFrpvVmjAr8OIOPeVoHBm0Ox8dv',
+    token: process.env.VUE_APP_SECRET,
     categories: {},
     product: {}
   },
