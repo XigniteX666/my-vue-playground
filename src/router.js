@@ -21,11 +21,7 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     },
-    {
-      path: '/cars',
-      name:'cars',
-      component: () => import('./views/Cars.vue')
-    },
+
     {
       path: '/commercetools',
       name:'commercetools',

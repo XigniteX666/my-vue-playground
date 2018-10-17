@@ -36,7 +36,7 @@ export default {
                     }
             }
             axios
-                .get("https://api.sphere.io/myplayground-68/product-projections/search?staged=false&text.en="+ this.searhTerm, config)
+                .get("https://api.sphere.io/myplayground-68/product-projections/search?staged=false&fuzzy=true&text.en="+ this.searhTerm, config)
                 //.then(response => this.$store.commit('setSearchResults', response))
                 .then(response => this.results = response)
         }
