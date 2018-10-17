@@ -1,16 +1,33 @@
 <template>
-    <div class=navbar navbar-fixed-top>
-            <span v-for = "topLevelCategory in categories.results" :key="topLevelCategory.id" class="dropdown menu-large">
+    <ul v-if="active" class="nav navbar"> 
+        <li v-for = "topLevelCategory in categories.results" :key="topLevelCategory.id" class="dropdown menu-large" 
+            @mouseover="hoverOnCategory(topLevelCategory)"
+            @mouseleave="hoverOffCategory()">
                 <router-link :to="{ name: 'category', params: { categoryId: topLevelCategory.id } }"
                    class="dropdown-toggle">
                     {{ topLevelCategory.name }} | 
                 </router-link>
-            </span>
-    </div>
+                <ul v-if="isMenuOpen(topLevelCategory)" class="dropdown-menu megamenu row dropdown-submenu">
+                    <li class="col-sm-8">
+                        <div class="nav-accordion">
+                            <div v-for="category2ndLevel in topLevelCategory.children" :key="category2ndLevel.id">
+                                <h3>
+                                      <router-link :to="{ name: 'category', params: { categoryId: category2ndLevel.id } }"
+                                        @click.native="clickOnCategory()"
+                                        data-test="category-2nd-level-link">
+                                            {{category2ndLevel.name}}
+                                    </router-link>
+                                </h3>
+                            </div>
+                        </div>
+                      </li>
+                </ul>
+        </li> 
+    </ul>
 </template>
 
 <script>
-import axios from 'axios'
+
 import gql from 'graphql-tag';
 
 export default {
@@ -18,27 +35,41 @@ export default {
     data() {
         return {
             categories: {},
+            someCategoryWasClicked: false,
+            openCategoryMenu: ''
         };
     },
     methods:{
-        getCategories: function() {
-           
-            let config = {
-                headers: {
-                    'Authorization':'Bearer ' + this.$store.getters.token
-                    }
+      isMenuOpen({ id }) {
+        return !this.someCategoryWasClicked && this.openCategoryMenu === id;
+        },
+        clickOnCategory() {
+            this.someCategoryWasClicked = true;
+        },
+        hoverOnCategory({ id, children }) {
+            console.log("hover over");
+            const hasChildren = Array.isArray(children) && children.length;
+            if (hasChildren) {
+                this.openCategoryMenu = id;
             }
-            axios
-                .get("https://api.sphere.io/myplayground-68/categories?where=parent%20is%20not%20defined&sort=orderHint%20asc", config)
-                .then(response => this.categories = response.data.results)
-
-        }
+            this.someCategoryWasClicked = false;
+        },
+        hoverOffCategory() {
+            console.log("hover off");
+            this.openCategoryMenu = '';
+        },
     },
     watch:{
          categories: function(newValue, oldValue){
+             console.log("Changing from " + oldValue + " to " + newValue);
              this.$store.commit('setCategories', newValue)
          }
      },
+    computed:{
+     active() {
+      return Array.isArray(this.categories.results) && this.categories.results.length > 0;
+        }
+    },
     apollo:{
          categories: {
       query: gql`
@@ -89,24 +120,32 @@ export default {
 
 <style>
 .navbar {
-    min-height: 0;
+  margin-bottom: 0;
+  border-bottom: 1px solid;
+  background: #FFFFFF;
 }
 
-.navbar-fixed-top {
-    top: 0;
-    border-width: 0 0 1px;
+.navbar-default .navbar-nav>.open>a,
+.navbar-default .navbar-nav>.open>a:focus,
+.navbar-default .navbar-nav>.open>a:hover {
+  background: none;
+  border: none;
 }
-.navbar-fixed-top {
-    position: fixed;
-    right: 0;
-    left: 0;
-    z-index: 1030;
+
+.navbar-default {
+  background: none;
+  border: none;
 }
-.navbar > li{
-	position: relative;
-	display: block
+
+#navigation .megamenu.dropdown-menu {
+  display: block !important;
 }
-.menu-large{
-	position: static !important;
+
+.navbar-nav>li>.megamenu {
+  width: 100%;
+  border: solid 1px;
+  border-top: none;
+  box-shadow: none;
 }
+
 </style>
