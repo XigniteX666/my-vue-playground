@@ -17,7 +17,6 @@ const httpEndpoint = process.env.VUE_APP_GRAPHQL_HTTP || `https://api.commerceto
 const authMiddleware = createAuthMiddlewareForClientCredentialsFlow(settings.ct.auth);
 
 function addAuthHeader(request) {
-  console.log(settings.ct.auth)
   return new Promise(success => authMiddleware(requestWithAuth => success(requestWithAuth))(request));
 }
 

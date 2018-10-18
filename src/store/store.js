@@ -12,6 +12,7 @@ export default new Vuex.Store({
     count: 1,
     token: process.env.VUE_APP_SECRET,
     categories: {},
+    cart:{},
     product: {}
   },
   mutations,

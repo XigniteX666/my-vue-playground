@@ -1,0 +1,11 @@
+mutation createCart($cart: CartDraft!) {
+  createCart(draft: $cart) {
+    id
+    version
+  }
+}
+
+{  "cart":{
+    "currency": "EUR"
+  }
+}

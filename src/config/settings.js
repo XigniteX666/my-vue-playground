@@ -13,7 +13,8 @@ function scopes() {
     'manage_my_shopping_lists',
     'view_products',
     'manage_my_orders',
-    'manage_my_profile'
+    'manage_my_profile',
+    'manage_orders'
     ]
     .map(scope => `${scope}:${projectKey}`);
 }

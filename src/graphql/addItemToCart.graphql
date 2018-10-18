@@ -1,0 +1,32 @@
+mutation addProductToCart($cartId: String!, $version: Long!,$actions: [CartUpdateAction!]!){
+  updateCart(id: $cartId, version: $version, actions:$actions){
+    id
+    version
+  	lineItems {
+      id
+      quantity
+      productId
+      name(locale:"EN")
+      productSlug(locale:"EN")
+      taxRate {
+        id
+      }
+  	}
+    totalPrice{
+      currencyCode
+      centAmount
+    }
+  }
+}
+
+{  "cartId": "b2d2f5b2-a918-40f5-88f7-ce11d7a750dd",
+  "version": 15,
+  "actions": [{
+    "addLineItem": {
+      "productId": "569d5da1-890d-4d21-914c-e1050336bd57",
+      "quantity": 1
+    }
+
+  }]
+  
+}

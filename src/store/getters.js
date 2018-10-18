@@ -3,6 +3,7 @@ export default{
     count: state => state.count,
     token: state => state.token,
     categories: state => state.categories,
-    product: state => state.product
+    product: state => state.product,
+    cart: state => state.cart
 
 }
