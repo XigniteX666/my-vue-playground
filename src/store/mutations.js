@@ -26,7 +26,9 @@ export default {
 
     setCart(state, cart){
         state.cart = cart
+    },
+
+    setLanguage(state, language){
+        state.language = language
     }
-
-
 }

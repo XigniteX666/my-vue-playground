@@ -1,21 +1,19 @@
 <template>
   <div>
     <div>Category</div>
-    Products: <br/>
-      <span v-for = "product in products.results" :key="product.id">
-        <product-info  v-bind:product = product />
-      </span>
+        Products in this category: <br/>
+        <Product  v-for = "product in products.results" v-bind:product = product :key="product.id"/>       
   </div>
 </template>
 
 <script>
 import gql from 'graphql-tag';
-import productInfo from './ProductInfo'
+import Product from './Product'
 
 export default {
     name: 'category',
     components:{
-      productInfo
+      Product
     },
     data() {
         return {
@@ -31,7 +29,7 @@ export default {
   apollo: {
     products: {
       query: gql`    
-        query listProducts($locale: Locale!, $currency: Currency!, $where: String, $maxNr: Int = 1) {
+        query listProducts($locale: Locale!, $currency: Currency!, $where: String, $maxNr: Int = 12) {
           products(limit: $maxNr, where: $where) {
             count
             results{

@@ -13,7 +13,8 @@ export default new Vuex.Store({
     token: process.env.VUE_APP_SECRET,
     categories: {},
     cart:{},
-    product: {}
+    product: {},
+    language: "EN"
   },
   mutations,
   actions,

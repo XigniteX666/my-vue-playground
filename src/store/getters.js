@@ -4,6 +4,6 @@ export default{
     token: state => state.token,
     categories: state => state.categories,
     product: state => state.product,
-    cart: state => state.cart
-
+    cart: state => state.cart,
+    language: state => state.language
 }

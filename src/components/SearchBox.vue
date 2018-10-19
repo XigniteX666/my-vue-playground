@@ -35,7 +35,7 @@ export default {
             let searchTerm = this.searhTerm;
             console.log("Searching for: " + searchTerm);
             const result3 = this.$apollo.query({
-                query: gql`query searchProducts($locale: Locale!, $where: String, $maxNr: Int = 10) {
+                query: gql`query searchProducts($locale: Locale!, $where: String, $maxNr: Int = 10, $currency:Currency!) {
                             products(limit: $maxNr, where: $where) {
                                 count
                                 results{
@@ -43,15 +43,31 @@ export default {
                                     masterData{
                                         current{
                                            name(locale:$locale)
+                                           description(locale:$locale)
+                                           masterVariant{
+                                               images{
+                                                   url
+                                               }
+                                               price(currency: $currency){
+                                                    value{
+                                                    ...printPrice
+                                                }
+                                            }
+                                           }
                                         }
                                     }
                                 }
                             }
-                        }`,
+                        }
+                        fragment printPrice on BaseMoney{
+          centAmount
+          fractionDigits
+        }`,
                         // Parameters
                         variables: {
                             where: "masterData(current(description(en = \"" + searchTerm + "\") or name(en=\"" + searchTerm + "\")))",
-                            locale: "EN"
+                            locale: "EN",
+                            currency: "EUR"
                         }  
         }).then((data) =>{
             console.log(data);
