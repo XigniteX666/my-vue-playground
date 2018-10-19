@@ -90,7 +90,7 @@ export default {
     ,
     variables(){
           return {
-            locale: "EN",
+            locale: this.$store.getters.language,
             currency: "EUR",
             productId: this.id,
           }

@@ -66,7 +66,7 @@ export default {
                         // Parameters
                         variables: {
                             where: "masterData(current(description(en = \"" + searchTerm + "\") or name(en=\"" + searchTerm + "\")))",
-                            locale: "EN",
+                           locale: this.$store.getters.language,
                             currency: "EUR"
                         }  
         }).then((data) =>{

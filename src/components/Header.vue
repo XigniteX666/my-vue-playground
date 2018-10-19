@@ -7,7 +7,8 @@
             <router-link to="/cart">Cart</router-link> |
             <router-link to="/about">About</router-link>
             <router-view/>
-
+            <languageswitch/>
+            
             <Categories />
             <mini-cart/>
         </div>
@@ -18,11 +19,13 @@
 
 import Categories from '../components/Categories'
 import miniCart from '../components/MiniCart'
+import languageswitch from '../components/LanguageSwitch'
 
 export default {
 components: {
         Categories,
-        miniCart
+        miniCart,
+        languageswitch
     }
 }
 </script>
