@@ -1,13 +1,13 @@
 <template>
-   
+    <div>
+        Product
          <router-link :to="{ name: 'product', params: { productSlug: product.id } }">
-              <div class="product-info-main">
-            id: {{ product.id }} <br/>
-            name: {{ product.name.en }} <br/>
-            {{ product.description.en}} <br/>
+            <div class="product-info-main">
+                id: {{ product.id }} <br/>
+                name: {{ product.masterData.current.name }} <br/>
             </div>
          </router-link>
-    
+    </div>
 </template>
 
 <script>

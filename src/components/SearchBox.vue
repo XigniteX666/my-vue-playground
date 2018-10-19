@@ -1,12 +1,14 @@
 <template>
     <div class="searchBox">
-        searchBox:  <input name="searchTerm" v-model="searhTerm"><button v-on:click="search">Search</button>       
-        <SearchResults v-if="results !=null" v-bind:searchResults = this.results.data />
+        searchBox:  <input name="searchTerm" v-model="searhTerm"><button v-on:click="searchQL">Search</button>       
+       
+        <SearchResults v-if="results !=null" v-bind:searchResults = this.results />
     </div>
 </template>
 
 <script>
-import axios from 'axios'
+
+import gql from 'graphql-tag';
 import SearchResults from './SearchResults'
 
 export default {
@@ -29,19 +31,36 @@ export default {
         }
     },
     methods:{
-        search:function(){       
-            let config = {
-                headers: {
-                    'Authorization':'Bearer ' + this.$store.getters.token
-                    }
-            }
-            axios
-                .get("https://api.sphere.io/myplayground-68/product-projections/search?staged=false&fuzzy=true&text.en="+ this.searhTerm, config)
-                //.then(response => this.$store.commit('setSearchResults', response))
-                .then(response => this.results = response)
-        }
+        searchQL:function(){
+            let searchTerm = this.searhTerm;
+            console.log("Searching for: " + searchTerm);
+            const result3 = this.$apollo.query({
+                query: gql`query searchProducts($locale: Locale!, $where: String, $maxNr: Int = 10) {
+                            products(limit: $maxNr, where: $where) {
+                                count
+                                results{
+                                    id
+                                    masterData{
+                                        current{
+                                           name(locale:$locale)
+                                        }
+                                    }
+                                }
+                            }
+                        }`,
+                        // Parameters
+                        variables: {
+                            where: "masterData(current(description(en = \"" + searchTerm + "\") or name(en=\"" + searchTerm + "\")))",
+                            locale: "EN"
+                        }  
+        }).then((data) =>{
+            console.log(data);
+            this.results = data.data.products
+            
+        })
     }
-
+        
+    }
 }
 </script>
 
