@@ -1,29 +1,30 @@
 <template>
-    <ul v-if="active" class="nav navbar"> 
-        <li v-for = "topLevelCategory in categories.results" :key="topLevelCategory.id" class="dropdown menu-large" 
-            @mouseover="hoverOnCategory(topLevelCategory)"
-            @mouseleave="hoverOffCategory()">
-                <router-link :to="{ name: 'category', params: { categoryId: topLevelCategory.id } }"
-                   class="dropdown-toggle">
-                    {{ topLevelCategory.name }} | 
-                </router-link>
-                <ul v-if="isMenuOpen(topLevelCategory)" class="dropdown-menu megamenu row dropdown-submenu">
-                    <li class="col-sm-8">
-                        <div class="nav-accordion">
-                            <div v-for="category2ndLevel in topLevelCategory.children" :key="category2ndLevel.id">
-                                <h3>
-                                      <router-link :to="{ name: 'category', params: { categoryId: category2ndLevel.id } }"
-                                        @click.native="clickOnCategory()"
-                                        data-test="category-2nd-level-link">
-                                            {{category2ndLevel.name}}
-                                    </router-link>
-                                </h3>
+<div>
+    <ul v-if="active" class="nav-menu">
+            <li v-for = "topLevelCategory in categories.results" :key="topLevelCategory.id" 
+                @mouseover="hoverOnCategory(topLevelCategory)"
+                @mouseleave="hoverOffCategory()">
+                    <router-link :to="{ name: 'category', params: { categoryId: topLevelCategory.id } }">
+                        {{ topLevelCategory.name }}
+                    </router-link>
+                    <ul v-if="isMenuOpen(topLevelCategory)">
+                        <li>
+                            <div>
+                                <div v-for="category2ndLevel in topLevelCategory.children" :key="category2ndLevel.id">
+                                    
+                                        <router-link :to="{ name: 'category', params: { categoryId: category2ndLevel.id } }"
+                                            @click.native="clickOnCategory()"
+                                            data-test="category-2nd-level-link">
+                                                {{category2ndLevel.name}}
+                                        </router-link>
+                                    
+                                </div>
                             </div>
-                        </div>
-                      </li>
-                </ul>
-        </li> 
+                        </li>
+                    </ul>
+            </li>
     </ul>
+</div>
 </template>
 
 <script>
@@ -47,7 +48,7 @@ export default {
             this.someCategoryWasClicked = true;
         },
         hoverOnCategory({ id, children }) {
-            console.log("hover over");
+            //console.log("hover over");
             const hasChildren = Array.isArray(children) && children.length;
             if (hasChildren) {
                 this.openCategoryMenu = id;
@@ -55,7 +56,7 @@ export default {
             this.someCategoryWasClicked = false;
         },
         hoverOffCategory() {
-            console.log("hover off");
+           // console.log("hover off");
             this.openCategoryMenu = '';
         },
     },
@@ -118,34 +119,70 @@ export default {
 
 </script>
 
+>
+
 <style>
-.navbar {
-  margin-bottom: 0;
-  border-bottom: 1px solid;
-  background: #FFFFFF;
-}
 
-.navbar-default .navbar-nav>.open>a,
-.navbar-default .navbar-nav>.open>a:focus,
-.navbar-default .navbar-nav>.open>a:hover {
-  background: none;
-  border: none;
+/* Reset */
+.nav,
+.nav a,
+.nav ul,
+.nav li,
+.nav div,
+.nav form,
+.nav input {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
 }
+ 
+.nav a { text-decoration: none; }
+ 
+.nav li { list-style: none; }
 
-.navbar-default {
-  background: none;
-  border: none;
+/* Menu Container */
+.nav-menu {
+    display: inline-block;
+    position: relative;
+    cursor: default;
+    z-index: 500;
 }
-
-#navigation .megamenu.dropdown-menu {
-  display: block !important;
+ 
+/* Menu List */
+.nav-menu > li {
+    display: block;
+    float: left;
 }
-
-.navbar-nav>li>.megamenu {
-  width: 100%;
-  border: solid 1px;
-  border-top: none;
-  box-shadow: none;
+/* Menu Links */
+.nav-menu > li > a {
+    position: relative;
+    display: block;
+    z-index: 510;
+    height: 54px;
+    padding: 0 20px;
+    line-height: 54px;
+     
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 13px;
+    color: #fcfcfc;
+    text-shadow: 0 0 1px rgba(0,0,0,.35);
+ 
+    background: #FFCC00;
+    border-left: 1px solid #4b4441;
+    border-right: 1px solid #312a27;
+ 
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    transition: all .3s ease;
 }
-
+.nav > li:hover > a { background: #4b4441; }
+ 
+.nav > li:first-child > a {
+    border-radius: 3px 0 0 3px;
+    border-left: none;
+}
 </style>
