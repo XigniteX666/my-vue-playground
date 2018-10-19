@@ -74,40 +74,42 @@ export default {
     apollo:{
          categories: {
       query: gql`
-        {
-            categories(limit: 100, where: "parent is not defined", sort: "orderHint asc") {
-                results {
-                    ...mainCategory
-                    children {
-                        ...subCategory
+        
+           query getCategories($locale: Locale!){
+                categories(limit: 100, where: "parent is not defined", sort: "orderHint asc") {
+                    results {
+                        ...mainCategory
                         children {
                             ...subCategory
+                            children {
+                                ...subCategory
+                            }
                         }
                     }
                 }
             }
-        }
+        
 
         fragment mainCategory on Category {
             id
-            name(locale: "EN")
-            slug(locale: "EN")
-            description(locale: "EN")
+            name(locale: $locale)
+            slug(locale: $locale)
+            description(locale: $locale)
             ancestors {
-                name(locale: "EN")
-                slug(locale: "EN")
+                name(locale: $locale)
+                slug(locale: $locale)
             }
         }
 
         fragment subCategory on Category{
             id
-            name(locale: "EN")
-            slug(locale: "EN")
-            description(locale: "EN")
+            name(locale: $locale)
+            slug(locale: $locale)
+            description(locale: $locale)
         }`,
       variables() {
         return {
-          locale: "NL"//this.$i18n.locale,
+          locale: this.$store.getters.language
         };
       }
     }
