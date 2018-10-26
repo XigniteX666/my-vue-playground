@@ -9,8 +9,3 @@ test_unit:
     - npm install
     - npm run test:unit
 
-eslint:
-  stage: test
-  script:
-    - npm install
-    -  ./node_modules/.bin/eslint src/**
