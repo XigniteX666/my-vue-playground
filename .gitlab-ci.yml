@@ -1,9 +1,9 @@
 image: node:8
 
 stages:
-  -test
+  - test
 
 test_unit:
   stage: test
   script:
-    -npm run test:unit
+    - npm run test:unit
