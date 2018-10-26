@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>Category</div>
+    <h2>Category</h2>
         Products in this category: <br/>
         <Product  v-for = "product in products.results" v-bind:product = product :key="product.id"/>       
   </div>

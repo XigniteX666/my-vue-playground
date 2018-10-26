@@ -1,7 +1,7 @@
 <template>
-    <div class = "commercetools">
+    <div class = "checkout">
         <Header />
-        <Categories />
+       CHECKOUT
         <Footer />
     </div>
 </template>
@@ -9,12 +9,11 @@
 <script>
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import Categories from '../components/Categories'
+
 export default {
-    name: 'commercetools',
+    name: 'checkout',
     components: {
-        Header,
-        Categories,
+        Header,  
         Footer
     }
 }

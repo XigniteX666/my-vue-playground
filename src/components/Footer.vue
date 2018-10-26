@@ -2,7 +2,7 @@
     <div class="footer">
         <br/>
         <br/>
-        Footer
+       @2018 Copyright XignitX ;-)
     </div>
 </template>
 

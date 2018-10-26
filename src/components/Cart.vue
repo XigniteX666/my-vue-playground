@@ -1,9 +1,19 @@
 <template>
     <div>
-        This is my cart
-
-        <button v-on:click="createCart">Create a cart</button><br/>
-        <button v-on:click="updateCart">update a cart</button><br/>
+        <h2>My cart</h2>
+        Here should be my cart details ;-)
+        <div v-if="this.$store.getters.cart.id != null">
+            <table> 
+                 <tr v-for = "line in cartdetails.lineItems" :key="line.id">
+                    <td>{{ line.quantity }}</td>
+                     <td> {{ line.name }} </td>
+                     <td> {{ line.totalPrice.currencyCode }} </td>
+                     <td align=right> {{ line.totalPrice.centAmount / 100 }}</td>
+                </tr>       
+            </table>
+        </div>
+        <button v-if="this.$store.getters.cart.id == null" v-on:click="createCart">Create a cart</button><br/>
+        <button v-if="this.$store.getters.cart.id != null" v-on:click="updateCart">Checkout</button><br/>
     </div>
 </template>
 
@@ -13,6 +23,11 @@ import gql from 'graphql-tag';
 
 export default {
  name: 'cart',
+ computed:{
+        cartdetails(){
+          return this.$store.getters.cart;
+        }
+},
  methods:{
     createCart() {
         console.log("creating a cart");

@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Header />
-    Wecome to my Vue test project
+      Wecome to my commerce tools demo project
     <Footer />
   </div>
 </template>

@@ -27,11 +27,6 @@ export default new Router({
       component: () => import('./views/Cart.vue')
     },
     {
-      path:'/playground',
-      name: 'playground',
-      component: () => import('./views/Playground.vue')
-    },
-    {
       path:'/category/:categoryId',
       name: 'category',
       component: () => import('./views/Category.vue'),
@@ -47,6 +42,11 @@ export default new Router({
       path: '/search',
       name: 'search',
       component: () => import('./views/Search.vue')
+    },
+    {
+      path: '/checkout',
+      name: 'checkout',
+      component: () => import('./views/Checkout.vue')
     }
   ]
 })

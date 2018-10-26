@@ -1,5 +1,6 @@
 <template>
     <div class="searchBox">
+        <h2>Search</h2>
         searchBox:  <input name="searchTerm" v-model="searhTerm"><button v-on:click="searchQL">Search</button>       
        
         <SearchResults v-if="results !=null" v-bind:searchResults = this.results />
