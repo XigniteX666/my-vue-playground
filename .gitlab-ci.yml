@@ -13,4 +13,4 @@ eslint:
   stage: test
   script:
     - npm install
-    - eslint
+    -  ./node_modules/.bin/eslint src/**
