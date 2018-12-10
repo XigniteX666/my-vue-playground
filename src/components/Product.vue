@@ -1,10 +1,9 @@
 <template>
     <div>
-        Product
          <router-link :to="{ name: 'product', params: { productSlug: product.id } }">
             <div class="product-info-main">
                 name: {{ product.masterData.current.name }} <br/>
-                price: {{ product.masterData.current.masterVariant.price.value.centAmount}}
+                price: {{ product.masterData.current.masterVariant.price.value.centAmount / 100 }}
             </div>
          </router-link>
     </div>
@@ -31,6 +30,7 @@ export default {
     padding: 6px;
     -webkit-box-shadow: 0 1px 4px 0 rgba(21,180,255,0.5);
     box-shadow: 0 1px 1px 0 rgba(21,180,255,0.5);
-    width: 10%;
+    width: 150px;
+    overflow: hidden;
 }
 </style>

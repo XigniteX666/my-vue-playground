@@ -7,9 +7,10 @@
 <script>
 export default {
     name: "language-switch",
-
     methods:{
-        changeLanguage: (lang) =>  this.$store.commit('setLanguage', lang)  
+        changeLanguage(lang) { 
+            this.$store.commit('setLanguage', lang)  
+        }
     }
 }
 </script>
