@@ -15,7 +15,14 @@ unit test:
   script:
     - npm install --progress=false
     - npm run test:unit
-
+  
+e2e test:
+  image: node 10.8
+  stage: test
+  script:
+    - npm install --progress=false
+    - npm run test:e2e
+  
 eslint:
   image: node:10.8
   stage: test
